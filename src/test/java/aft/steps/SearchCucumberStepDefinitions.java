@@ -1,5 +1,7 @@
 package aft.steps;
 
+import aft.web.pages.SearchPage;
+import com.codeborne.selenide.Selenide;
 import io.cucumber.java.Before;
 import io.cucumber.java.ru.Когда;
 import io.restassured.RestAssured;
@@ -8,9 +10,13 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
+import static com.codeborne.selenide.Selenide.page;
+
 public class SearchCucumberStepDefinitions {
 
-    public final String BASE_URL = "https://yandex.ru";
+    public final String BASE_URL = "https://ya.ru";
+
+    public SearchPage searchPage = page(SearchPage.class);
     public RequestSpecification requestSpec;
 
     @Before
@@ -34,6 +40,17 @@ public class SearchCucumberStepDefinitions {
                 .then()
                 .statusCode(200)
                 .log().all();
+    }
+
+    @Когда("перешел на главную страницу ya.ru")
+    public void openPage() {
+        Selenide.open(BASE_URL);
+    }
+
+    @Когда("выполнил поиск на странице: {string}")
+    public void searchOnPage(String query) throws InterruptedException {
+        searchPage.search(query);
+        Thread.sleep(5000);
     }
 
 }
