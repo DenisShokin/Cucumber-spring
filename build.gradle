@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.6.6'
-        cucumberVersion = '7.3.4'
+        cucumberVersion = '7.8.1'
         testContainerVersion = '1.17.5'
     }
 }
@@ -22,14 +22,14 @@ repositories {
 
 dependencies {
 
-    implementation 'org.projectlombok:lombok:1.18.20'
+    implementation 'org.projectlombok:lombok:1.18.24'
 
     //spring
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 
     //selenide
-    implementation 'com.codeborne:selenide:6.10.0'
+    implementation 'com.codeborne:selenide:6.10.1'
 
     //cucumber
     implementation group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
@@ -37,12 +37,12 @@ dependencies {
     testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
 
     //junit
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testImplementation 'org.junit.platform:junit-platform-suite-api:1.8.2'
-    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.3.4'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.9.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.8.1'
 
     //restAssured
-    testImplementation 'io.rest-assured:rest-assured:5.2.0'
+    testImplementation 'io.rest-assured:rest-assured:5.3.0'
 
 }
 
