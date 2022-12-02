@@ -1,0 +1,79 @@
+buildscript {
+    ext {
+        springBootVersion = '2.6.6'
+        cucumberVersion = '7.3.4'
+        testContainerVersion = '1.17.5'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'checkstyle'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+
+    implementation 'org.projectlombok:lombok:1.18.20'
+
+    //spring
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+
+    //selenide
+    implementation 'com.codeborne:selenide:6.10.0'
+
+    //cucumber
+    implementation group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
+    implementation group: 'io.cucumber', name: 'cucumber-spring', version: "${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+
+    //junit
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.8.2'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.3.4'
+
+    //restAssured
+    testImplementation 'io.rest-assured:rest-assured:5.2.0'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task deleteCucumberReports(type: Delete) {
+    dependsOn(clean)
+
+    delete 'out', 'target'
+}
+
+/**
+ * to run Cucumber tests with custom runTests task and with default browser, type:
+ * 'runTests'
+ *
+ * to run Cucumber tests with custom runTests task and with chrome browser, type:
+ * '-Dbrowser=chrome runTests'
+ *
+ * to run Cucumber tests with chrome browser, type:
+ * 'clean -Dbrowser=chrome test'
+ */
+task runTests (type: Test){
+    dependsOn(clean)
+    dependsOn(deleteCucumberReports)
+    systemProperty "browser", System.getProperty("browser")
+}
