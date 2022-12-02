@@ -1,16 +1,18 @@
-buildscript {
-    ext {
-        springBootVersion = '2.6.6'
-        cucumberVersion = '7.8.1'
-        testContainerVersion = '1.17.5'
-    }
-}
-
 plugins {
     id 'java'
-    id 'org.springframework.boot' version "${springBootVersion}"
     id 'checkstyle'
+    id 'org.springframework.boot' version '2.6.6'
+    id 'io.qameta.allure' version '2.11.2'
 }
+
+def springBootVersion = '2.6.6'
+def cucumberVersion = '7.8.1'
+def selenideVersion='6.10.1'
+def restAssuredVersion = '5.3.0'
+def allureVersion = '2.17.3'
+
+group 'org.aft.dshokin'
+version '1.0'
 
 java {
     toolchain {
@@ -18,13 +20,11 @@ java {
     }
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+compileJava.options.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
 
@@ -35,47 +35,30 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 
     //selenide
-    implementation 'com.codeborne:selenide:6.10.1'
+    implementation group: 'com.codeborne', name: 'selenide', version: "${selenideVersion}"
 
     //cucumber
     testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
     testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: "${cucumberVersion}"
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}"
-    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: '7.8.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: "${cucumberVersion}"
 
     //restAssured
-    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: "${restAssuredVersion}"
 
+    //allure
+    implementation group: 'io.qameta.allure', name: 'allure-cucumber7-jvm', version: "${allureVersion}"
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 test {
     useJUnitPlatform()
 }
 
-compileJava.options.encoding = 'UTF-8'
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-task deleteCucumberReports(type: Delete) {
-    dependsOn(clean)
-
-    delete 'out', 'target'
-}
-
-/**
- * to run Cucumber tests with custom runTests task and with default browser, type:
- * 'runTests'
- *
- * to run Cucumber tests with custom runTests task and with chrome browser, type:
- * '-Dbrowser=chrome runTests'
- *
- * to run Cucumber tests with chrome browser, type:
- * 'clean -Dbrowser=chrome test'
- */
-task runTests(type: Test) {
-    dependsOn(clean)
-    dependsOn(deleteCucumberReports)
-    systemProperty "browser", System.getProperty("browser")
+allure {
+    autoconfigure = true
 }
