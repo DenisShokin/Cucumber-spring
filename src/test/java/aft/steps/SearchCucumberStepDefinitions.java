@@ -34,7 +34,7 @@ public class SearchCucumberStepDefinitions {
         RestAssured
                 .given()
                 .spec(requestSpec)
-                    .queryParam("text",query)
+                .queryParam("text", query)
                 .when()
                 .get()
                 .then()

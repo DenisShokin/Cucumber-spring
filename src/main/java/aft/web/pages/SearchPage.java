@@ -8,7 +8,7 @@ public class SearchPage {
     @FindBy(xpath = "//*[@class='search3__input mini-suggest__input']")
     private SelenideElement searchField;
 
-    public void search(String query){
+    public void search(String query) {
         searchField.setValue(query).pressEnter();
     }
 }
