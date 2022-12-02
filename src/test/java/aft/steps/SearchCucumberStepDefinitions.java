@@ -42,12 +42,12 @@ public class SearchCucumberStepDefinitions {
                 .log().all();
     }
 
-    @Когда("перешел на главную страницу ya.ru")
+    @Когда("пользователь перешел на главную страницу ya.ru")
     public void openPage() {
         Selenide.open(BASE_URL);
     }
 
-    @Когда("выполнил поиск на странице: {string}")
+    @Когда("пользователь выполнил поиск на странице: {string}")
     public void searchOnPage(String query) throws InterruptedException {
         searchPage.search(query);
         Thread.sleep(5000);
