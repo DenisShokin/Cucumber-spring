@@ -40,7 +40,7 @@ dependencies {
     //cucumber
     testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
     testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: "${cucumberVersion}"
-    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}"
     testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: '7.8.1'
 
     //restAssured
