@@ -12,9 +12,7 @@
 * open build.gradle file in IDE (IntelliJ)
 * import dependencies with gradle
 
-### Customise Cucumber tests
-* add your .feature files with scenarios
-* create custom steps class / steps classes with @Autowired annotations for page objects class / classes
-* generate steps- in .feature file press 'alt+enter' shortcut and choose 'Create step definition' option, choose created steps class / steps classes to paste steps
-* create custom page objects classes with methods and with @PageObject and @Autowired annotations for webdriver manager
-* delete example .feature files, steps classes and page objects classes
+### Run tests
+* use command _test_ for default launch
+* use command _test_ with selenide properties or set them in build.gradle
+* use command _allureReport_ for build report (report path: build/reports/allure-report)
