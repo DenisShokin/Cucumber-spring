@@ -28,8 +28,7 @@ repositories {
 
 dependencies {
 
-    testImplementation 'org.projectlombok:lombok:1.18.24'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.projectlombok:lombok:1.18.24'
 
     //spring
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
@@ -52,16 +51,24 @@ dependencies {
 
 }
 
+allure {
+    autoconfigure = true
+}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-test {
-    jvmArgs += "-Dselenide.pageLoadStrategy=none"
-
+tasks.withType(Test) {
     useJUnitPlatform()
-}
 
-allure {
-    autoconfigure = true
+    //junit
+    systemProperties.put('cucumber.execution.parallel.enabled', "true")
+    systemProperties.put('cucumber.execution.parallel.config.strategy', "fixed")
+    systemProperties.put('cucumber.execution.parallel.config.fixed.parallelism', 2)
+
+    //selenide
+    systemProperties.put('selenide.pageLoadStrategy', "none")
+    systemProperties.put('selenide.reportsFolder', "${reportsDir}/tests/${name}")
+    systemProperties.put('selenide.downloadsFolder', "${buildDir}/tests/downloads")
 }
