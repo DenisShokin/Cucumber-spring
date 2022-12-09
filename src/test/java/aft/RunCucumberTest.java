@@ -1,9 +1,7 @@
 package aft;
 
-import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.platform.engine.Cucumber;
 
-@CucumberOptions(features = "classpath:aft/features",
-        glue = {"aft.steps", "aft.configurations", "aft.hook"})
-@io.cucumber.junit.platform.engine.Cucumber
+@Cucumber
 public class RunCucumberTest {
 }

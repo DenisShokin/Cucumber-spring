@@ -38,9 +38,9 @@ dependencies {
     implementation group: 'com.codeborne', name: 'selenide', version: "${selenideVersion}"
 
     //cucumber
-    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
     testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: "${cucumberVersion}"
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}"
+    //we want to use the @Cucumber annotation to run Cucumber tests
     testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: "${cucumberVersion}"
 
     //restAssured
@@ -52,7 +52,7 @@ dependencies {
 }
 
 allure {
-    autoconfigure = true
+    autoconfigure(true)
 }
 
 tasks.withType(JavaCompile) {
@@ -60,12 +60,19 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
-    useJUnitPlatform()
+    useJUnitPlatform() {
+        excludeTags("disabled")
+    }
 
     //junit
     systemProperties.put('cucumber.execution.parallel.enabled', "true")
     systemProperties.put('cucumber.execution.parallel.config.strategy', "fixed")
     systemProperties.put('cucumber.execution.parallel.config.fixed.parallelism', 2)
+    systemProperties.put('cucumber.publish.enabled', 'true')
+    systemProperties.put('cucumber.plugin',
+                        'pretty, html:target/cucumber-reports/Cucumber.html, ' +
+                        'json:target/cucumber-reports/Cucumber.json, ' +
+                        'junit:target/cucumber-reports/Cucumber.xml')
 
     //selenide
     systemProperties.put('selenide.pageLoadStrategy', "none")
