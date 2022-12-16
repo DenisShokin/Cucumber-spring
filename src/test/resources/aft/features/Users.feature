@@ -1,9 +1,9 @@
 #language:ru
 # проверка, что сервис отвечает
 # тестовый сервис https://reqres.in/
-@smoke_customers
+@customers
 Функционал: Пользователи.
 
-  @smoke_search_ui
+  @smoke_customers_api
   Сценарий: Получить всех пользователей.
     Пусть получены все пользователи
