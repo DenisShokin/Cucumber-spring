@@ -56,6 +56,10 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
+
+    dependsOn(checkstyleMain)
+    dependsOn(checkstyleTest)
+
     useJUnitPlatform() {
         excludeTags("disabled")
     }
