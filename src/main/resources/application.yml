@@ -1,0 +1,13 @@
+mainPageUrl: http://yan.ru
+---
+
+spring:
+  profiles: development
+
+mainPageUrl: http://ya.ru
+---
+
+spring:
+  profiles: test
+
+mainPageUrl: http://ya.ru

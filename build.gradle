@@ -78,4 +78,13 @@ tasks.withType(Test) {
     systemProperties.put('selenide.pageLoadStrategy', "none")
     systemProperties.put('selenide.reportsFolder', "${reportsDir}/tests/${name}")
     systemProperties.put('selenide.downloadsFolder', "${buildDir}/tests/downloads")
+
+}
+
+task 'testDev' (type:Test) {
+    jvmArgs "-Dspring.profiles.active=development"
+}
+
+task 'testInt' (type:Test) {
+    jvmArgs "-Dspring.profiles.active=test"
 }

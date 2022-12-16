@@ -1,21 +1,20 @@
 package aft.steps;
 
 import aft.web.pages.MainPage;
-import com.codeborne.selenide.Selenide;
 import io.cucumber.java.ru.Когда;
+import org.springframework.beans.factory.annotation.Value;
 
 import static com.codeborne.selenide.Selenide.page;
 
 public class SearchCucumberStepDefinitions {
 
-    private final String BASE_URL = "https://ya.ru";
-
+    @Value("${mainPageUrl}")
+    private String url;
     private MainPage mainPage = page(MainPage.class);
-
 
     @Когда("пользователь перешел на главную страницу ya.ru")
     public void openPage() {
-        Selenide.open(BASE_URL);
+        mainPage.open(url);
     }
 
     @Когда("пользователь выполнил поиск на главной странице: {string}")
