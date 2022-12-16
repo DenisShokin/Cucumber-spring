@@ -1,13 +1,13 @@
-mainPageUrl: http://yan.ru
+baseUrl: https://reqres.in/api/
 ---
 
 spring:
   profiles: development
 
-mainPageUrl: http://ya.ru
+baseUrl: https://reqres.in/api/
 ---
 
 spring:
   profiles: test
 
-mainPageUrl: http://ya.ru
+baseUrl: https://reqres.in/api/

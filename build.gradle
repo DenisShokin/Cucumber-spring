@@ -7,7 +7,6 @@ plugins {
 
 def springBootVersion = '2.6.6'
 def cucumberVersion = '7.8.1'
-def selenideVersion = '6.10.1'
 def restAssuredVersion = '5.3.0'
 def allureVersion = '2.17.3'
 
@@ -31,11 +30,8 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.24'
 
     //spring
-    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-
-    //selenide
-    implementation group: 'com.codeborne', name: 'selenide', version: "${selenideVersion}"
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
 
     //cucumber
     testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: "${cucumberVersion}"
@@ -44,7 +40,7 @@ dependencies {
     testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: "${cucumberVersion}"
 
     //restAssured
-    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: "${restAssuredVersion}"
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: "${restAssuredVersion}"
 
     //allure
     implementation group: 'io.qameta.allure', name: 'allure-cucumber7-jvm', version: "${allureVersion}"
@@ -73,11 +69,6 @@ tasks.withType(Test) {
                         'pretty, html:target/cucumber-reports/Cucumber.html, ' +
                         'json:target/cucumber-reports/Cucumber.json, ' +
                         'junit:target/cucumber-reports/Cucumber.xml')
-
-    //selenide
-    systemProperties.put('selenide.pageLoadStrategy', "none")
-    systemProperties.put('selenide.reportsFolder', "${reportsDir}/tests/${name}")
-    systemProperties.put('selenide.downloadsFolder', "${buildDir}/tests/downloads")
 
 }
 
