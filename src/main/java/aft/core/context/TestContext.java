@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+/**
+ * Класс для хранения переменных сценария, общих для всех шагов
+ */
 @Component
 public class TestContext {
 
